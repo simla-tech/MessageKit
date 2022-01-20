@@ -29,7 +29,7 @@ import MapKit
 open class LocationMessageCell: MessageContentCell {
 
     /// The activity indicator to be displayed while the map image is loading.
-    open var activityIndicator = UIActivityIndicatorView(style: .gray)
+    open var activityIndicator = UIActivityIndicatorView(style: .medium)
 
     /// The image view holding the map image.
     open var imageView = UIImageView()
@@ -71,7 +71,9 @@ open class LocationMessageCell: MessageContentCell {
         let snapshotOptions = MKMapSnapshotter.Options()
         snapshotOptions.region = MKCoordinateRegion(center: locationItem.location.coordinate, span: options.span)
         snapshotOptions.showsBuildings = options.showsBuildings
-        snapshotOptions.showsPointsOfInterest = options.showsPointsOfInterest
+        if !options.showsPointsOfInterest {
+            snapshotOptions.pointOfInterestFilter = .excludingAll
+        }
 
         let snapShotter = MKMapSnapshotter(options: snapshotOptions)
         self.snapShotter = snapShotter
