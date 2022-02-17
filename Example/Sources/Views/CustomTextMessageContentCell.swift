@@ -10,29 +10,29 @@ import UIKit
 import MessageKit
 
 class CustomTextMessageContentCell: CustomMessageContentCell {
-    
+
     /// The label used to display the message's text.
     var messageLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        
+
         return label
     }()
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+
         self.messageLabel.attributedText = nil
         self.messageLabel.text = nil
     }
 
     override func setupSubviews() {
         super.setupSubviews()
-        
+
         self.messageContainerView.addSubview(self.messageLabel)
     }
-    
+
     override func configure(with message: MessageType,
                             at indexPath: IndexPath,
                             in messagesCollectionView: MessagesCollectionView,
@@ -43,7 +43,7 @@ class CustomTextMessageContentCell: CustomMessageContentCell {
                         in: messagesCollectionView,
                         dataSource: dataSource,
                         and: sizeCalculator)
-        
+
         guard let displayDelegate = messagesCollectionView.messagesDisplayDelegate else {
             return
         }
@@ -51,7 +51,7 @@ class CustomTextMessageContentCell: CustomMessageContentCell {
         let calculator = sizeCalculator as? CustomTextLayoutSizeCalculator
         self.messageLabel.frame = calculator?.messageLabelFrame(for: message,
                                                                 at: indexPath) ?? .zero
-        
+
         let textMessageKind = message.kind
         switch textMessageKind {
         case .text(let text), .emoji(let text):

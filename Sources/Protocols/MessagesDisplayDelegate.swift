@@ -72,7 +72,7 @@ public protocol MessagesDisplayDelegate: AnyObject {
     ///   - indexPath: The `IndexPath` of the footer.
     ///   - messagesCollectionView: The `MessagesCollectionView` in which this footer will be displayed.
     func messageFooterView(for indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageReusableView
-    
+
     /// Used to configure the `AvatarView`‘s image in a `MessageContentCell` class.
     ///
     /// - Parameters:
@@ -175,7 +175,7 @@ public protocol MessagesDisplayDelegate: AnyObject {
     func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView)
 
     // MARK: - Audio Message
-    
+
     /// Used to configure the audio cell UI:
     ///     1. play button selected state;
     ///     2. progressView progress;
@@ -243,7 +243,7 @@ public extension MessagesDisplayDelegate {
             return dataSource.isFromCurrentSender(message: message) ? .outgoingMessageBackground : .incomingMessageBackground
         }
     }
-    
+
     func messageHeaderView(for indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageReusableView {
         return messagesCollectionView.dequeueReusableHeaderView(MessageReusableView.self, for: indexPath)
     }
@@ -251,7 +251,7 @@ public extension MessagesDisplayDelegate {
     func messageFooterView(for indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageReusableView {
         return messagesCollectionView.dequeueReusableFooterView(MessageReusableView.self, for: indexPath)
     }
-    
+
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         avatarView.initials = "?"
     }
@@ -295,9 +295,9 @@ public extension MessagesDisplayDelegate {
     }
 
     // MARK: - Audio Message Defaults
-    
+
     func configureAudioCell(_ cell: AudioMessageCell, message: MessageType) {
-        
+
     }
 
     func audioTintColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {

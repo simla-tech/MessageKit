@@ -28,15 +28,15 @@ import SafariServices
 import SwiftUI
 
 final internal class LaunchViewController: UITableViewController {
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
     let cells = ["Basic Example", "Advanced Example", "Autocomplete Example", "Embedded Example", "Custom Layout Example", "Subview Example", "SwiftUI Example", "Settings", "Source Code", "Contributors"]
-    
+
     // MARK: - View Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "MessageKit"
@@ -44,17 +44,17 @@ final internal class LaunchViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
     }
-    
+
     // MARK: - UITableViewDataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,9 +67,9 @@ final internal class LaunchViewController: UITableViewController {
         cell.accessoryType = .disclosureIndicator
         return cell
     }
-    
+
     // MARK: - UITableViewDelegate
-    
+
     // swiftlint:disable cyclomatic_complexity
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = cells[indexPath.row]
@@ -113,7 +113,7 @@ final internal class LaunchViewController: UITableViewController {
             return
         }
     }
-    
+
     func openURL(_ url: URL) {
         let webViewController = SFSafariViewController(url: url)
         webViewController.preferredControlTintColor = .primaryColor

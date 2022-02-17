@@ -28,7 +28,7 @@ import UIKit
 open class AvatarView: UIImageView {
 
     // MARK: - Properties
-    
+
     open var initials: String? {
         didSet {
             setImageFrom(initials: initials)
@@ -75,7 +75,7 @@ open class AvatarView: UIImageView {
         super.init(frame: frame)
         prepareView()
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         prepareView()
@@ -85,7 +85,7 @@ open class AvatarView: UIImageView {
         self.init(frame: .zero)
         prepareView()
     }
-    
+
     private func setImageFrom(initials: String?) {
         guard let initials = initials else { return }
         image = getImageFrom(initials: initials)
@@ -170,7 +170,7 @@ open class AvatarView: UIImageView {
     }
 
     // MARK: - Open setters
-    
+
     open func set(avatar: Avatar) {
         if let image = avatar.image {
             self.image = image
@@ -181,7 +181,7 @@ open class AvatarView: UIImageView {
 
     open func setCorner(radius: CGFloat?) {
         guard let radius = radius else {
-            //if corner radius not set default to Circle
+            // if corner radius not set default to Circle
             let cornerRadius = min(frame.width, frame.height)
             layer.cornerRadius = cornerRadius/2
             return

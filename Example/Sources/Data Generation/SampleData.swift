@@ -54,7 +54,7 @@ final internal class SampleData {
     let wu = MockUser(senderId: "000003", displayName: "Wu Zhong")
 
     lazy var senders = [nathan, steven, wu]
-    
+
     lazy var contactsToShare = [
         MockContactItem(name: "System", initials: "S"),
         MockContactItem(name: "Nathan Tannar", initials: "NT", emails: ["test@test.com"]),
@@ -69,7 +69,7 @@ final internal class SampleData {
     }
 
     var now = Date()
-    
+
     let messageImages: [UIImage] = [#imageLiteral(resourceName: "img1"), #imageLiteral(resourceName: "img2")]
     let messageImageURLs: [URL] = [URL(string: "https://placekitten.com/g/200/300")!,
                                    URL(string: "https://placekitten.com/g/300/300")!,
@@ -84,9 +84,9 @@ final internal class SampleData {
         "😃😃😃",
         "❤️"
     ]
-    
+
     let attributes = ["Font1", "Font2", "Font3", "Font4", "Color", "Combo"]
-    
+
     let locations: [CLLocation] = [
         CLLocation(latitude: 37.3118, longitude: -122.0312),
         CLLocation(latitude: 33.6318, longitude: -100.0386),
@@ -116,7 +116,7 @@ final internal class SampleData {
         var mutableAttributedString = NSMutableAttributedString(string: text)
         let randomAttribute = Int(arc4random_uniform(UInt32(attributes.count)))
         let range = NSRange(location: 0, length: nsString.length)
-        
+
         switch attributes[randomAttribute] {
         case "Font1":
             mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.preferredFont(forTextStyle: .body), range: range)
@@ -132,7 +132,7 @@ final internal class SampleData {
             let msg9String = "Use .attributedText() to add bold, italic, colored text and more..."
             let msg9Text = NSString(string: msg9String)
             let msg9AttributedText = NSMutableAttributedString(string: String(msg9Text))
-            
+
             msg9AttributedText.addAttribute(NSAttributedString.Key.font, value: UIFont.preferredFont(forTextStyle: .body), range: NSRange(location: 0, length: msg9Text.length))
             msg9AttributedText.addAttributes([NSAttributedString.Key.font: UIFont.monospacedDigitSystemFont(ofSize: UIFont.systemFontSize, weight: UIFont.Weight.bold)], range: msg9Text.range(of: ".attributedText()"))
             msg9AttributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)], range: msg9Text.range(of: "bold"))
@@ -142,7 +142,7 @@ final internal class SampleData {
         default:
             fatalError("Unrecognized attribute for mock message")
         }
-        
+
         return NSAttributedString(attributedString: mutableAttributedString)
     }
 
@@ -159,7 +159,7 @@ final internal class SampleData {
             return date
         }
     }
-    
+
     func randomMessageType() -> MessageTypes {
         return MessageTypes.allCases.compactMap {
             guard UserDefaults.standard.bool(forKey: "\($0.rawValue)" + " Messages") else { return nil }
@@ -223,7 +223,7 @@ final internal class SampleData {
         }
         completion(messages)
     }
-    
+
     func getMessages(count: Int) -> [MockMessage] {
         var messages: [MockMessage] = []
         // Disable Custom Messages
@@ -238,7 +238,7 @@ final internal class SampleData {
         }
         return messages
     }
-    
+
     func getAdvancedMessages(count: Int, completion: ([MockMessage]) -> Void) {
         var messages: [MockMessage] = []
         // Enable Custom Messages
@@ -249,7 +249,7 @@ final internal class SampleData {
         }
         completion(messages)
     }
-    
+
     func getMessages(count: Int, allowedSenders: [MockUser], completion: ([MockMessage]) -> Void) {
         var messages: [MockMessage] = []
         // Disable Custom Messages

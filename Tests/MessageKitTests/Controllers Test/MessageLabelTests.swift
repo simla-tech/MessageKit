@@ -30,33 +30,33 @@ final class MessageLabelTests: XCTestCase {
 
     let mentionsList = ["@julienkode", "@facebook", "@google", "@1234"]
     let hashtagsList = ["#julienkode", "#facebook", "#google", "#1234"]
-    
+
     func testMentionDetection() {
         let messageLabel: MessageLabel = MessageLabel()
         let detector: DetectorType = DetectorType.mention
         let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key(rawValue: "Mention"): "MentionDetected"]
-        
+
         let text = mentionsList.joined(separator: " #test ")
         set(text: text, and: [detector], with: attributes, to: messageLabel)
         let matches = extractCustomDetectors(for: detector, with: messageLabel)
         XCTAssertEqual(matches, mentionsList)
-        
+
         let invalids = hashtagsList.joined(separator: " ")
         set(text: invalids, and: [detector], with: attributes, to: messageLabel)
         let invalidMatches = extractCustomDetectors(for: detector, with: messageLabel)
         XCTAssertEqual(invalidMatches.count, 0)
     }
-    
+
     func testHashtagDetection() {
         let messageLabel: MessageLabel = MessageLabel()
         let detector: DetectorType = DetectorType.hashtag
         let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key(rawValue: "Hashtag"): "HashtagDetected"]
-        
+
         let text = hashtagsList.joined(separator: " @test ")
         set(text: text, and: [detector], with: attributes, to: messageLabel)
         let matches = extractCustomDetectors(for: detector, with: messageLabel)
         XCTAssertEqual(matches, hashtagsList)
-        
+
         let invalids = mentionsList.joined(separator: " ")
         set(text: invalids, and: [detector], with: attributes, to: messageLabel)
         let invalidMatches = extractCustomDetectors(for: detector, with: messageLabel)
@@ -66,35 +66,35 @@ final class MessageLabelTests: XCTestCase {
     func testCustomDetection() {
         let shouldPass = ["1234", "1", "09876"]
         let shouldFailed = ["abcd", "a", "!!!", ";"]
-        
+
         let messageLabel: MessageLabel = MessageLabel()
         let detector: DetectorType = DetectorType.custom(try! NSRegularExpression(pattern: "[0-9]+", options: .caseInsensitive))
         let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key(rawValue: "Custom"): "CustomDetected"]
-        
+
         let text = shouldPass.joined(separator: " ")
         set(text: text, and: [detector], with: attributes, to: messageLabel)
         let matches = extractCustomDetectors(for: detector, with: messageLabel)
         XCTAssertEqual(matches, shouldPass)
-        
+
         let invalids = shouldFailed.joined(separator: " ")
         set(text: invalids, and: [detector], with: attributes, to: messageLabel)
         let invalidMatches = extractCustomDetectors(for: detector, with: messageLabel)
         XCTAssertEqual(invalidMatches.count, 0)
     }
-    
+
     func testSyncBetweenAttributedAndText() {
         let messageLabel: MessageLabel = MessageLabel()
         let expectedText = "Some text"
         messageLabel.attributedText = NSAttributedString(string: expectedText)
         XCTAssertEqual(messageLabel.text, expectedText)
-        
+
         messageLabel.attributedText = nil
         XCTAssertNil(messageLabel.text)
-        
+
         messageLabel.text = "some"
         messageLabel.text = expectedText
         XCTAssertEqual(messageLabel.attributedText?.string, expectedText)
-        
+
         messageLabel.attributedText = NSAttributedString(string: "Not nil")
         messageLabel.text = nil
         XCTAssertNil(messageLabel.attributedText)
@@ -112,7 +112,7 @@ final class MessageLabelTests: XCTestCase {
      */
     private func extractCustomDetectors(for detector: DetectorType, with label: MessageLabel) -> [String] {
         guard let detection = label.rangesForDetectors[detector] else { return [] }
-        return detection.compactMap ({ (range, messageChecking) -> String? in
+        return detection.compactMap({ (_, messageChecking) -> String? in
             switch messageChecking {
             case .custom(_, let match):
                 return match

@@ -26,19 +26,19 @@ import Foundation
 import UIKit
 
 open class ContactMessageCell: MessageContentCell {
-    
+
     public enum ConstraintsID: String {
         case initialsContainerLeftConstraint
         case disclosureRightConstraint
     }
-    
+
     /// The view container that holds contact initials
     public lazy var initialsContainerView: UIView = {
         let initialsContainer = UIView(frame: CGRect.zero)
         initialsContainer.backgroundColor = .collectionViewBackground
         return initialsContainer
     }()
-    
+
     /// The label that display the contact initials
     public lazy var initialsLabel: UILabel = {
         let initialsLabel = UILabel(frame: CGRect.zero)
@@ -47,21 +47,21 @@ open class ContactMessageCell: MessageContentCell {
         initialsLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         return initialsLabel
     }()
-    
+
     /// The label that display contact name
     public lazy var nameLabel: UILabel = {
         let nameLabel = UILabel(frame: CGRect.zero)
         nameLabel.numberOfLines = 0
         return nameLabel
     }()
-    
+
     /// The disclosure image view
     public lazy var disclosureImageView: UIImageView = {
         let disclosureImage = UIImage.messageKitImageWith(type: .disclosure)?.withRenderingMode(.alwaysTemplate)
         let disclosure = UIImageView(image: disclosureImage)
         return disclosure
     }()
-    
+
     // MARK: - Methods
     open override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         super.apply(layoutAttributes)
@@ -79,13 +79,13 @@ open class ContactMessageCell: MessageContentCell {
         initialsContainerView.addSubview(initialsLabel)
         setupConstraints()
     }
-    
+
     open override func prepareForReuse() {
         super.prepareForReuse()
         nameLabel.text = ""
         initialsLabel.text = ""
     }
-    
+
     open func setupConstraints() {
         initialsContainerView.constraint(equalTo: CGSize(width: 26, height: 26))
         let initialsConstraints = initialsContainerView.addConstraints(left: messageContainerView.leftAnchor, centerY: messageContainerView.centerYAnchor,
@@ -106,7 +106,7 @@ open class ContactMessageCell: MessageContentCell {
                                  bottomConstant: 0,
                                  rightConstant: 5)
     }
-    
+
     // MARK: - Configure Cell
     open override func configure(with message: MessageType, at indexPath: IndexPath, and messagesCollectionView: MessagesCollectionView) {
         super.configure(with: message, at: indexPath, and: messagesCollectionView)
@@ -139,5 +139,5 @@ open class ContactMessageCell: MessageContentCell {
         nameLabel.textColor = textColor
         disclosureImageView.tintColor = textColor
     }
-    
+
 }

@@ -37,13 +37,13 @@ final class MessageSwiftUIVC: MessagesViewController {
 
 @available(iOS 13.0, *)
 struct MessagesView: UIViewControllerRepresentable {
-    
+
     @State var initialized = false
     @Binding var messages: [MessageType]
-    
+
     func makeUIViewController(context: Context) -> MessagesViewController {
         let messagesVC = MessageSwiftUIVC()
-        
+
         messagesVC.messagesCollectionView.messagesDisplayDelegate = context.coordinator
         messagesVC.messagesCollectionView.messagesLayoutDelegate = context.coordinator
         messagesVC.messagesCollectionView.messagesDataSource = context.coordinator
@@ -51,15 +51,15 @@ struct MessagesView: UIViewControllerRepresentable {
         messagesVC.scrollsToLastItemOnKeyboardBeginsEditing = true // default false
         messagesVC.maintainPositionOnKeyboardFrameChanged = true // default false
         messagesVC.showMessageTimestampOnSwipeLeft = true // default false
-        
+
         return messagesVC
     }
-    
+
     func updateUIViewController(_ uiViewController: MessagesViewController, context: Context) {
         uiViewController.messagesCollectionView.reloadData()
         scrollToBottom(uiViewController)
     }
-    
+
     private func scrollToBottom(_ uiViewController: MessagesViewController) {
         DispatchQueue.main.async {
             // The initialized state variable allows us to start at the bottom with the initial messages without seeing the initial scroll flash by
@@ -67,24 +67,24 @@ struct MessagesView: UIViewControllerRepresentable {
             self.initialized = true
         }
     }
-    
+
     func makeCoordinator() -> Coordinator {
         return Coordinator(messages: $messages)
     }
-    
+
     final class Coordinator {
-        
+
         let formatter: DateFormatter = {
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             return formatter
         }()
-        
+
         var messages: Binding<[MessageType]>
         init(messages: Binding<[MessageType]>) {
             self.messages = messages
         }
-        
+
     }
 
 }
@@ -94,20 +94,20 @@ extension MessagesView.Coordinator: MessagesDataSource {
     func currentSender() -> SenderType {
         return SampleData.shared.currentSender
     }
-    
+
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
         return messages.wrappedValue[indexPath.section]
     }
-    
+
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         return messages.wrappedValue.count
     }
-    
+
     func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         let name = message.sender.displayName
         return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
     }
-    
+
     func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         let dateString = formatter.string(from: message.sentDate)
         return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
@@ -140,7 +140,7 @@ extension MessagesView.Coordinator: MessagesLayoutDelegate, MessagesDisplayDeleg
     func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 20
     }
-    
+
     func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 16
     }

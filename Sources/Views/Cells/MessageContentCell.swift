@@ -46,7 +46,7 @@ open class MessageContentCell: MessageCollectionViewCell {
         label.textAlignment = .center
         return label
     }()
-    
+
     /// The bottom label of the cell.
     open var cellBottomLabel: InsetLabel = {
         let label = InsetLabel()
@@ -54,7 +54,7 @@ open class MessageContentCell: MessageCollectionViewCell {
         label.textAlignment = .center
         return label
     }()
-    
+
     /// The top label of the messageBubble.
     open var messageTopLabel: InsetLabel = {
         let label = InsetLabel()
@@ -281,19 +281,19 @@ open class MessageContentCell: MessageCollectionViewCell {
 
         cellTopLabel.frame = CGRect(origin: .zero, size: attributes.cellTopLabelSize)
     }
-    
+
     /// Positions the cell's bottom label.
     /// - attributes: The `MessagesCollectionViewLayoutAttributes` for the cell.
     open func layoutCellBottomLabel(with attributes: MessagesCollectionViewLayoutAttributes) {
         cellBottomLabel.textAlignment = attributes.cellBottomLabelAlignment.textAlignment
         cellBottomLabel.textInsets = attributes.cellBottomLabelAlignment.textInsets
-        
+
         let y = messageBottomLabel.frame.maxY
         let origin = CGPoint(x: 0, y: y)
-        
+
         cellBottomLabel.frame = CGRect(origin: origin, size: attributes.cellBottomLabelSize)
     }
-    
+
     /// Positions the message bubble's top label.
     /// - attributes: The `MessagesCollectionViewLayoutAttributes` for the cell.
     open func layoutMessageTopLabel(with attributes: MessagesCollectionViewLayoutAttributes) {
@@ -302,7 +302,7 @@ open class MessageContentCell: MessageCollectionViewCell {
 
         let y = messageContainerView.frame.minY - attributes.messageContainerPadding.top - attributes.messageTopLabelSize.height
         let origin = CGPoint(x: 0, y: y)
-        
+
         messageTopLabel.frame = CGRect(origin: origin, size: attributes.messageTopLabelSize)
     }
 
@@ -321,9 +321,9 @@ open class MessageContentCell: MessageCollectionViewCell {
     /// Positions the cell's accessory view.
     /// - attributes: The `MessagesCollectionViewLayoutAttributes` for the cell.
     open func layoutAccessoryView(with attributes: MessagesCollectionViewLayoutAttributes) {
-        
+
         var origin: CGPoint = .zero
-        
+
         // Accessory view is set at the side space of the messageContainerView
         switch attributes.accessoryViewPosition {
         case .messageLabelTop:

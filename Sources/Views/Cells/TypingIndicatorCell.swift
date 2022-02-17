@@ -26,41 +26,41 @@ import UIKit
 
 /// A subclass of `MessageCollectionViewCell` used to display the typing indicator.
 open class TypingIndicatorCell: MessageCollectionViewCell {
-    
+
     // MARK: - Subviews
 
     public var insets = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
-    
+
     public let typingBubble = TypingBubble()
-    
+
     // MARK: - Initialization
-    
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupSubviews()
     }
-    
+
     open func setupSubviews() {
         addSubview(typingBubble)
     }
-    
+
     open override func prepareForReuse() {
         super.prepareForReuse()
         if typingBubble.isAnimating {
             typingBubble.stopAnimating()
         }
     }
-    
+
     // MARK: - Layout
-    
+
     open override func layoutSubviews() {
         super.layoutSubviews()
         typingBubble.frame = bounds.inset(by: insets)
     }
-    
+
 }

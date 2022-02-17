@@ -29,20 +29,20 @@ import InputBarAccessoryView
 import Kingfisher
 
 final class AdvancedExampleViewController: ChatViewController {
-        
+
     let outgoingAvatarOverlap: CGFloat = 17.5
-    
+
     override func viewDidLoad() {
         messagesCollectionView = MessagesCollectionView(frame: .zero, collectionViewLayout: CustomMessagesFlowLayout())
         messagesCollectionView.register(CustomCell.self)
         super.viewDidLoad()
-        
+
         updateTitleView(title: "MessageKit", subtitle: "2 Online")
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         MockSocket.shared.connect(with: [SampleData.shared.nathan, SampleData.shared.wu])
             .onTypingStatus { [weak self] in
                 self?.setTypingIndicatorViewHidden(false)
@@ -52,7 +52,7 @@ final class AdvancedExampleViewController: ChatViewController {
                 })
         }
     }
-    
+
     override func loadFirstMessages() {
         DispatchQueue.global(qos: .userInitiated).async {
             let count = UserDefaults.standard.mockMessagesCount()
@@ -65,7 +65,7 @@ final class AdvancedExampleViewController: ChatViewController {
             }
         }
     }
-    
+
     override func loadMoreMessages() {
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
             SampleData.shared.getAdvancedMessages(count: 20) { messages in
@@ -77,13 +77,13 @@ final class AdvancedExampleViewController: ChatViewController {
             }
         }
     }
-    
+
     override func configureMessageCollectionView() {
         super.configureMessageCollectionView()
-        
+
         let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout
         layout?.sectionInset = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 8)
-        
+
         // Hide the outgoing avatar and adjust the label alignment to line up with the messages
         layout?.setMessageOutgoingAvatarSize(.zero)
         layout?.setMessageOutgoingMessageTopLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)))
@@ -93,7 +93,7 @@ final class AdvancedExampleViewController: ChatViewController {
         layout?.setMessageIncomingMessageTopLabelAlignment(LabelAlignment(textAlignment: .left, textInsets: UIEdgeInsets(top: 0, left: 18, bottom: outgoingAvatarOverlap, right: 0)))
         layout?.setMessageIncomingAvatarSize(CGSize(width: 30, height: 30))
         layout?.setMessageIncomingMessagePadding(UIEdgeInsets(top: -outgoingAvatarOverlap, left: -18, bottom: outgoingAvatarOverlap, right: 18))
-        
+
         layout?.setMessageIncomingAccessoryViewSize(CGSize(width: 30, height: 30))
         layout?.setMessageIncomingAccessoryViewPadding(HorizontalEdgeInsets(left: 8, right: 0))
         layout?.setMessageIncomingAccessoryViewPosition(.messageBottom)
@@ -103,10 +103,10 @@ final class AdvancedExampleViewController: ChatViewController {
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
     }
-    
+
     override func configureMessageInputBar() {
-        //super.configureMessageInputBar()
-        
+        // super.configureMessageInputBar()
+
         messageInputBar = CameraInputBarAccessoryView()
         messageInputBar.delegate = self
         messageInputBar.inputTextView.tintColor = .primaryColor
@@ -114,8 +114,7 @@ final class AdvancedExampleViewController: ChatViewController {
         messageInputBar.sendButton.setTitleColor(
             UIColor.primaryColor.withAlphaComponent(0.3),
             for: .highlighted)
-        
-        
+
         messageInputBar.isTranslucent = true
         messageInputBar.separatorLine.isHidden = true
         messageInputBar.inputTextView.tintColor = .primaryColor
@@ -157,9 +156,9 @@ final class AdvancedExampleViewController: ChatViewController {
                 item.setTitleColor(color, for: .normal)
         }
         let bottomItems = [.flexibleSpace, charCountButton]
-        
+
         configureInputBarPadding()
-        
+
         messageInputBar.setStackViewItems(bottomItems, forStack: .bottom, animated: false)
 
         // This just adds some more flare
@@ -174,39 +173,39 @@ final class AdvancedExampleViewController: ChatViewController {
                 })
         }
     }
-    
+
     /// The input bar will autosize based on the contained text, but we can add padding to adjust the height or width if necessary
     /// See the InputBar diagram here to visualize how each of these would take effect:
     /// https://raw.githubusercontent.com/MessageKit/MessageKit/master/Assets/InputBarAccessoryViewLayout.png
     private func configureInputBarPadding() {
-    
+
         // Entire InputBar padding
         messageInputBar.padding.bottom = 8
-        
+
         // or MiddleContentView padding
         messageInputBar.middleContentViewPadding.right = -38
 
         // or InputTextView padding
         messageInputBar.inputTextView.textContainerInset.bottom = 8
-        
+
     }
-    
+
     // MARK: - Helpers
-    
+
     func isTimeLabelVisible(at indexPath: IndexPath) -> Bool {
         return indexPath.section % 3 == 0 && !isPreviousMessageSameSender(at: indexPath)
     }
-    
+
     func isPreviousMessageSameSender(at indexPath: IndexPath) -> Bool {
         guard indexPath.section - 1 >= 0 else { return false }
         return messageList[indexPath.section].user == messageList[indexPath.section - 1].user
     }
-    
+
     func isNextMessageSameSender(at indexPath: IndexPath) -> Bool {
         guard indexPath.section + 1 < messageList.count else { return false }
         return messageList[indexPath.section].user == messageList[indexPath.section + 1].user
     }
-    
+
     func setTypingIndicatorViewHidden(_ isHidden: Bool, performUpdates updates: (() -> Void)? = nil) {
         updateTitleView(title: "MessageKit", subtitle: isHidden ? "2 Online" : "Typing...")
         setTypingIndicatorViewHidden(isHidden, animated: true, whilePerforming: updates) { [weak self] success in
@@ -215,7 +214,7 @@ final class AdvancedExampleViewController: ChatViewController {
             }
         }
     }
-    
+
     private func makeButton(named: String) -> InputBarButtonItem {
         return InputBarButtonItem()
             .configure {
@@ -239,11 +238,11 @@ final class AdvancedExampleViewController: ChatViewController {
                 self.navigationController?.present(actionSheet, animated: true, completion: nil)
         }
     }
-    
+
     // MARK: - UICollectionViewDataSource
-    
+
     public override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+
         guard let messagesDataSource = messagesCollectionView.messagesDataSource else {
             fatalError("Ouch. nil data source for messages")
         }
@@ -271,7 +270,7 @@ final class AdvancedExampleViewController: ChatViewController {
         }
         return nil
     }
-    
+
     override func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if !isPreviousMessageSameSender(at: indexPath) {
             let name = message.sender.displayName
@@ -316,15 +315,15 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
     }
 
     // MARK: - All Messages
-    
+
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ? .primaryColor : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     }
 
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
-        
+
         var corners: UIRectCorner = []
-        
+
         if isFromCurrentSender(message: message) {
             corners.formUnion(.topLeft)
             corners.formUnion(.bottomLeft)
@@ -344,7 +343,7 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
                 corners.formUnion(.bottomLeft)
             }
         }
-        
+
         return .custom { view in
             let radius: CGFloat = 16
             let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
@@ -353,7 +352,7 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
             view.layer.mask = mask
         }
     }
-    
+
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         let avatar = SampleData.shared.getAvatarFor(sender: message.sender)
         avatarView.set(avatar: avatar)
@@ -361,7 +360,7 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
         avatarView.layer.borderWidth = 2
         avatarView.layer.borderColor = UIColor.primaryColor.cgColor
     }
-    
+
     func configureAccessoryView(_ accessoryView: UIView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         // Cells are reused, so only add a button here once. For real use you would need to
         // ensure any subviews are removed if not needed
@@ -387,9 +386,9 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
             imageView.kf.cancelDownloadTask()
         }
     }
-    
+
     // MARK: - Location Messages
-    
+
     func annotationViewForLocation(message: MessageType, at indexPath: IndexPath, in messageCollectionView: MessagesCollectionView) -> MKAnnotationView? {
         let annotationView = MKAnnotationView(annotation: nil, reuseIdentifier: nil)
         let pinImage = #imageLiteral(resourceName: "ic_map_marker")
@@ -397,7 +396,7 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
         annotationView.centerOffset = CGPoint(x: 0, y: -pinImage.size.height / 2)
         return annotationView
     }
-    
+
     func animationBlockForLocation(message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> ((UIImageView) -> Void)? {
         return { view in
             view.layer.transform = CATransform3DMakeScale(2, 2, 2)
@@ -406,9 +405,9 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
             }, completion: nil)
         }
     }
-    
+
     func snapshotOptionsForLocation(message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LocationMessageSnapshotOptions {
-        
+
         return LocationMessageSnapshotOptions(showsBuildings: true, showsPointsOfInterest: true, span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10))
     }
 
@@ -421,7 +420,7 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
     func configureAudioCell(_ cell: AudioMessageCell, message: MessageType) {
         audioController.configureAudioCell(cell, message: message) // this is needed especially when the cell is reconfigure while is playing sound
     }
-    
+
 }
 
 // MARK: - MessagesLayoutDelegate
@@ -434,7 +433,7 @@ extension AdvancedExampleViewController: MessagesLayoutDelegate {
         }
         return 0
     }
-    
+
     func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         if isFromCurrentSender(message: message) {
             return !isPreviousMessageSameSender(at: indexPath) ? 20 : 0
@@ -449,27 +448,23 @@ extension AdvancedExampleViewController: MessagesLayoutDelegate {
 
 }
 
-
 extension AdvancedExampleViewController: CameraInputBarAccessoryViewDelegate {
 
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith attachments: [AttachmentManager.Attachment]) {
-        
-        
+
         for item in attachments {
             if  case .image(let image) = item {
-              
+
                 self.sendImageMessage(photo: image)
             }
         }
         inputBar.invalidatePlugins()
     }
-    
-    
-    func sendImageMessage( photo  : UIImage)  {
-       
+
+    func sendImageMessage( photo: UIImage) {
+
         let photoMessage = MockMessage(image: photo, user: self.currentSender() as! MockUser, messageId: UUID().uuidString, date: Date())
         self.insertMessage(photoMessage)
     }
-    
-}
 
+}

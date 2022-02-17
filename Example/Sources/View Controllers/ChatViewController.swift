@@ -35,7 +35,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
 
     lazy var messageList: [MockMessage] = []
-    
+
     private(set) lazy var refreshControl: UIRefreshControl = {
         let control = UIRefreshControl()
         control.addTarget(self, action: #selector(loadMoreMessages), for: .valueChanged)
@@ -54,22 +54,22 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configureMessageCollectionView()
         configureMessageInputBar()
         loadFirstMessages()
         title = "MessageKit"
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         MockSocket.shared.connect(with: [SampleData.shared.nathan, SampleData.shared.wu])
             .onNewMessage { [weak self] message in
                 self?.insertMessage(message)
         }
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         MockSocket.shared.disconnect()
@@ -79,7 +79,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
     func loadFirstMessages() {
         DispatchQueue.global(qos: .userInitiated).async {
             let count = UserDefaults.standard.mockMessagesCount()
@@ -92,7 +92,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
             }
         }
     }
-    
+
     @objc func loadMoreMessages() {
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
             SampleData.shared.getMessages(count: 20) { messages in
@@ -104,20 +104,20 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
             }
         }
     }
-    
+
     func configureMessageCollectionView() {
-        
+
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messageCellDelegate = self
-        
+
         scrollsToLastItemOnKeyboardBeginsEditing = true // default false
         maintainPositionOnKeyboardFrameChanged = true // default false
 
         showMessageTimestampOnSwipeLeft = true // default false
-        
+
         messagesCollectionView.refreshControl = refreshControl
     }
-    
+
     func configureMessageInputBar() {
         messageInputBar.delegate = self
         messageInputBar.inputTextView.tintColor = .primaryColor
@@ -127,9 +127,9 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
             for: .highlighted
         )
     }
-    
+
     // MARK: - Helpers
-    
+
     func insertMessage(_ message: MockMessage) {
         messageList.append(message)
         // Reload last section to update header/footer labels and insert a new one
@@ -144,13 +144,13 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
             }
         })
     }
-    
+
     func isLastSectionVisible() -> Bool {
-        
+
         guard !messageList.isEmpty else { return false }
-        
+
         let lastIndexPath = IndexPath(item: 0, section: messageList.count - 1)
-        
+
         return messagesCollectionView.indexPathsForVisibleItems.contains(lastIndexPath)
     }
 
@@ -188,7 +188,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         let dateString = formatter.string(from: message.sentDate)
         return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
     }
-    
+
     func textCell(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UICollectionViewCell? {
         return nil
     }
@@ -200,27 +200,27 @@ extension ChatViewController: MessageCellDelegate {
     func didTapAvatar(in cell: MessageCollectionViewCell) {
         print("Avatar tapped")
     }
-    
+
     func didTapMessage(in cell: MessageCollectionViewCell) {
         print("Message tapped")
     }
-    
+
     func didTapImage(in cell: MessageCollectionViewCell) {
         print("Image tapped")
     }
-    
+
     func didTapCellTopLabel(in cell: MessageCollectionViewCell) {
         print("Top cell label tapped")
     }
-    
+
     func didTapCellBottomLabel(in cell: MessageCollectionViewCell) {
         print("Bottom cell label tapped")
     }
-    
+
     func didTapMessageTopLabel(in cell: MessageCollectionViewCell) {
         print("Top message label tapped")
     }
-    
+
     func didTapMessageBottomLabel(in cell: MessageCollectionViewCell) {
         print("Bottom label tapped")
     }
@@ -274,19 +274,19 @@ extension ChatViewController: MessageLabelDelegate {
     func didSelectAddress(_ addressComponents: [String: String]) {
         print("Address Selected: \(addressComponents)")
     }
-    
+
     func didSelectDate(_ date: Date) {
         print("Date Selected: \(date)")
     }
-    
+
     func didSelectPhoneNumber(_ phoneNumber: String) {
         print("Phone Number Selected: \(phoneNumber)")
     }
-    
+
     func didSelectURL(_ url: URL) {
         print("URL Selected: \(url)")
     }
-    
+
     func didSelectTransitInformation(_ transitInformation: [String: String]) {
         print("TransitInformation Selected: \(transitInformation)")
     }

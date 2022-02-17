@@ -77,19 +77,19 @@ private struct MockAudioItem: AudioItem {
 }
 
 struct MockContactItem: ContactItem {
-    
+
     var displayName: String
     var initials: String
     var phoneNumbers: [String]
     var emails: [String]
-    
+
     init(name: String, initials: String, phoneNumbers: [String] = [], emails: [String] = []) {
         self.displayName = name
         self.initials = initials
         self.phoneNumbers = phoneNumbers
         self.emails = emails
     }
-    
+
 }
 
 struct MockLinkItem: LinkItem {
@@ -118,7 +118,7 @@ internal struct MockMessage: MessageType {
         self.messageId = messageId
         self.sentDate = date
     }
-    
+
     init(custom: Any?, user: MockUser, messageId: String, date: Date) {
         self.init(kind: .custom(custom), user: user, messageId: messageId, date: date)
     }

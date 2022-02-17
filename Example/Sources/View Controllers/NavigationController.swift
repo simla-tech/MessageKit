@@ -25,7 +25,7 @@
 import UIKit
 
 final class NavigationController: UINavigationController {
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return viewControllers.last?.preferredStatusBarStyle ?? .lightContent
     }
@@ -41,7 +41,7 @@ final class NavigationController: UINavigationController {
         navigationBar.setBackgroundImage(UIImage(), for: .default)
         view.backgroundColor = .primaryColor
     }
-    
+
     func setAppearanceStyle(to style: UIStatusBarStyle) {
         if style == .default {
             navigationBar.shadowImage = UIImage()

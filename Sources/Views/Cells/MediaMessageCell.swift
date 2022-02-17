@@ -55,7 +55,7 @@ open class MediaMessageCell: MessageContentCell {
         messageContainerView.addSubview(playButtonView)
         setupConstraints()
     }
-    
+
     open override func prepareForReuse() {
         super.prepareForReuse()
         self.imageView.image = nil
@@ -81,7 +81,7 @@ open class MediaMessageCell: MessageContentCell {
 
         displayDelegate.configureMediaMessageImageView(imageView, for: message, at: indexPath, in: messagesCollectionView)
     }
-    
+
     /// Handle tap gesture on contentView and its subviews.
     open override func handleTapGesture(_ gesture: UIGestureRecognizer) {
         let touchLocation = gesture.location(in: imageView)
@@ -92,5 +92,5 @@ open class MediaMessageCell: MessageContentCell {
         }
         delegate?.didTapImage(in: self)
     }
-    
+
 }

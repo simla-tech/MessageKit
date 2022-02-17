@@ -29,7 +29,7 @@ let package = Package(
     name: "MessageKit",
     platforms: [.iOS(.v12)],
     products: [
-        .library(name: "MessageKit", targets: ["MessageKit"]),
+        .library(name: "MessageKit", targets: ["MessageKit"])
     ],
     dependencies: [
         .package(url: "https://github.com/nathantannar4/InputBarAccessoryView", .upToNextMajor(from: "5.4.0"))
