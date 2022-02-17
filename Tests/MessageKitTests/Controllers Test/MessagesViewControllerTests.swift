@@ -232,9 +232,9 @@ final class MessagesViewControllerTests: XCTestCase {
     
     func testDefaultPropertyValues() {
         let controller = MessagesViewController()
-        XCTAssertTrue(controller.canBecomeFirstResponder)
+        XCTAssertFalse(controller.canBecomeFirstResponder)
         XCTAssertFalse(controller.shouldAutorotate)
-        XCTAssertNotNil(controller.inputAccessoryView)
+        XCTAssertNil(controller.inputAccessoryView)
         XCTAssertNotNil(controller.messagesCollectionView)
         XCTAssertTrue(controller.messagesCollectionView.collectionViewLayout is MessagesCollectionViewFlowLayout)
         
