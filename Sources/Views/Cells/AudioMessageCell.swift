@@ -59,7 +59,7 @@ open class AudioMessageCell: MessageContentCell {
         progressView.progress = 0.0
         return progressView
     }()
-
+    
     // MARK: - Methods
 
     /// Responsible for setting up the constraints of the cell's subviews.
@@ -131,7 +131,7 @@ open class AudioMessageCell: MessageContentCell {
         playButton.imageView?.tintColor = tintColor
         durationLabel.textColor = tintColor
         progressView.tintColor = tintColor
-
+        
         if case let .audio(audioItem) = message.kind {
             durationLabel.text = displayDelegate.audioProgressTextFormat(audioItem.duration, for: self, in: messagesCollectionView)
         }

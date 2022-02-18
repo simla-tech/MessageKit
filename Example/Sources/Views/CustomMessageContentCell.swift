@@ -10,10 +10,10 @@ import UIKit
 import MessageKit
 
 class CustomMessageContentCell: MessageCollectionViewCell {
-
+    
     /// The `MessageCellDelegate` for the cell.
     weak var delegate: MessageCellDelegate?
-
+    
     /// The container used for styling and holding the message's content view.
     var messageContainerView: UIView = {
         let containerView = UIView()
@@ -29,14 +29,14 @@ class CustomMessageContentCell: MessageCollectionViewCell {
         label.textAlignment = .center
         return label
     }()
-
+    
     var cellDateLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .right
         return label
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -56,7 +56,7 @@ class CustomMessageContentCell: MessageCollectionViewCell {
         self.cellDateLabel.text = nil
         self.cellDateLabel.attributedText = nil
     }
-
+    
     /// Handle tap gesture on contentView and its subviews.
     override func handleTapGesture(_ gesture: UIGestureRecognizer) {
         let touchLocation = gesture.location(in: self)
@@ -79,15 +79,15 @@ class CustomMessageContentCell: MessageCollectionViewCell {
         guard gestureRecognizer.isKind(of: UILongPressGestureRecognizer.self) else { return false }
         return self.messageContainerView.frame.contains(touchPoint)
     }
-
+    
     func setupSubviews() {
         self.messageContainerView.layer.cornerRadius = 5
-
+        
         self.contentView.addSubview(self.cellTopLabel)
         self.contentView.addSubview(self.messageContainerView)
         self.messageContainerView.addSubview(self.cellDateLabel)
     }
-
+    
     func configure(with message: MessageType,
                    at indexPath: IndexPath,
                    in messagesCollectionView: MessagesCollectionView,
@@ -110,7 +110,7 @@ class CustomMessageContentCell: MessageCollectionViewCell {
         self.messageContainerView.backgroundColor = displayDelegate.backgroundColor(for: message,
                                                                                     at: indexPath,
                                                                                     in: messagesCollectionView)
-
+        
     }
 
     /// Handle `ContentView`'s tap gesture, return false when `ContentView` doesn't needs to handle gesture

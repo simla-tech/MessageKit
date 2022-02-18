@@ -27,16 +27,16 @@ import UIKit
 import InputBarAccessoryView
 
 final class MessageSubviewViewController: BasicExampleViewController {
-
+    
     private var keyboardManager = KeyboardManager()
-
+    
     private let subviewInputBar = InputBarAccessoryView()
-
+    
     // In order to reach the subviewInputBar
-    override var inputAccessoryView: UIView? {
+    override var inputAccessoryView: UIView?{
         return self.subviewInputBar
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

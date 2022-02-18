@@ -78,9 +78,9 @@ final class MessageKitDateFormatterTests: XCTestCase {
     }
 
     func testConfigureDateFormatterWeekAndYear() {
-        // First day of current week
+        //First day of current week
         var startOfWeek = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date()))!
-        // Check if today or yesterday was the first day of the week, because it will be different format then
+        //Check if today or yesterday was the first day of the week, because it will be different format then
         if Calendar.current.isDateInToday(startOfWeek) || Calendar.current.isDateInYesterday(startOfWeek) {
             formatter.doesRelativeDateFormatting = true
             formatter.dateStyle = .short
@@ -92,15 +92,15 @@ final class MessageKitDateFormatterTests: XCTestCase {
             XCTAssertEqual(MessageKitDateFormatter.shared.string(from: startOfWeek), formatter.string(from: startOfWeek))
         }
 
-        /// Day of last week
+        ///Day of last week
         startOfWeek = (Calendar.current as NSCalendar).date(byAdding: .day, value: -2, to: startOfWeek, options: [])!
-
+        
         if Calendar.current.isDate(startOfWeek, equalTo: Date(), toGranularity: .year) {
             formatter.dateFormat = "E, d MMM, h:mm a"
         } else {
             formatter.dateFormat = "MMM d, yyyy, h:mm a"
         }
-
+        
         XCTAssertEqual(MessageKitDateFormatter.shared.string(from: startOfWeek), formatter.string(from: startOfWeek))
     }
 

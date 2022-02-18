@@ -25,11 +25,11 @@ class CustomTextLayoutSizeCalculator: CustomLayoutSizeCalculator {
             self.cellMessageContainerRightSpacing
         let width = max(selfWidth, size.width)
         let height = size.height + labelSize.height
-
+        
         return CGSize(width: width,
                       height: height)
     }
-
+    
     func messageLabelSize(for message: MessageType,
                           at indexPath: IndexPath) -> CGSize {
         let attributedText: NSAttributedString
@@ -43,21 +43,21 @@ class CustomTextLayoutSizeCalculator: CustomLayoutSizeCalculator {
         default:
             fatalError("messageLabelSize received unhandled MessageDataType: \(message.kind)")
         }
-
+        
         let maxWidth = self.messageContainerMaxWidth -
             self.cellMessageContentHorizontalPadding -
             self.cellMessageContainerRightSpacing
-
+        
         return attributedText.size(consideringWidth: maxWidth)
     }
-
+    
     func messageLabelFrame(for message: MessageType,
                            at indexPath: IndexPath) -> CGRect {
         let origin = CGPoint(x: self.cellMessageContentHorizontalPadding / 2,
                              y: self.cellMessageContentVerticalPadding / 2)
         let size = self.messageLabelSize(for: message,
                                          at: indexPath)
-
+        
         return CGRect(origin: origin,
                       size: size)
     }

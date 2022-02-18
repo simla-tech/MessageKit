@@ -10,7 +10,7 @@ import UIKit
 import MessageKit
 
 class CustomLayoutSizeCalculator: CellSizeCalculator {
-
+    
     var cellTopLabelVerticalPadding: CGFloat = 32
     var cellTopLabelHorizontalPadding: CGFloat = 32
     var cellMessageContainerHorizontalPadding: CGFloat = 48
@@ -19,27 +19,27 @@ class CustomLayoutSizeCalculator: CellSizeCalculator {
     var cellMessageContentHorizontalPadding: CGFloat = 16
     var cellDateLabelHorizontalPadding: CGFloat = 24
     var cellDateLabelBottomPadding: CGFloat = 8
-
+    
     var messagesLayout: MessagesCollectionViewFlowLayout {
         self.layout as! MessagesCollectionViewFlowLayout
     }
-
+    
     var messageContainerMaxWidth: CGFloat {
         self.messagesLayout.itemWidth -
             self.cellMessageContainerHorizontalPadding -
             self.cellMessageContainerExtraSpacing
     }
-
+    
     var messagesDataSource: MessagesDataSource {
         self.messagesLayout.messagesDataSource
     }
-
+    
     init(layout: MessagesCollectionViewFlowLayout? = nil) {
         super.init()
-
+        
         self.layout = layout
     }
-
+    
     override func sizeForItem(at indexPath: IndexPath) -> CGSize {
         let dataSource = self.messagesDataSource
         let message = dataSource.messageForItem(at: indexPath,
@@ -59,7 +59,7 @@ class CustomLayoutSizeCalculator: CellSizeCalculator {
             self.messageContainerSize(for: message,
                                       at: indexPath).height
     }
-
+    
     // MARK: - Top cell Label
 
     func cellTopLabelSize(for message: MessageType,
@@ -68,15 +68,15 @@ class CustomLayoutSizeCalculator: CellSizeCalculator {
                                                                                       at: indexPath) else {
             return .zero
         }
-
+        
         let maxWidth = self.messagesLayout.itemWidth - self.cellTopLabelHorizontalPadding
         let size = attributedText.size(consideringWidth: maxWidth)
         let height = size.height + self.cellTopLabelVerticalPadding
-
+        
         return CGSize(width: maxWidth,
                       height: height)
     }
-
+    
     func cellTopLabelFrame(for message: MessageType,
                            at indexPath: IndexPath) -> CGRect {
         let size = self.cellTopLabelSize(for: message,
@@ -84,14 +84,15 @@ class CustomLayoutSizeCalculator: CellSizeCalculator {
         guard size != .zero else {
             return .zero
         }
-
+        
         let origin = CGPoint(x: self.cellTopLabelHorizontalPadding / 2,
                              y: 0)
-
+        
+        
         return CGRect(origin: origin,
                       size: size)
     }
-
+    
     func cellMessageBottomLabelSize(for message: MessageType,
                                     at indexPath: IndexPath) -> CGSize {
         guard let attributedText = self.messagesDataSource.messageBottomLabelAttributedText(for: message,
@@ -99,10 +100,10 @@ class CustomLayoutSizeCalculator: CellSizeCalculator {
             return .zero
         }
         let maxWidth = self.messageContainerMaxWidth - self.cellDateLabelHorizontalPadding
-
+        
         return attributedText.size(consideringWidth: maxWidth)
     }
-
+    
     func cellMessageBottomLabelFrame(for message: MessageType,
                                      at indexPath: IndexPath) -> CGRect {
         let messageContainerSize = self.messageContainerSize(for: message,
@@ -113,11 +114,11 @@ class CustomLayoutSizeCalculator: CellSizeCalculator {
         let y = messageContainerSize.height - labelSize.height - self.cellDateLabelBottomPadding
         let origin = CGPoint(x: x,
                              y: y)
-
+        
         return CGRect(origin: origin,
                       size: labelSize)
     }
-
+    
     // MARK: - MessageContainer
 
     func messageContainerSize(for message: MessageType,
@@ -130,11 +131,11 @@ class CustomLayoutSizeCalculator: CellSizeCalculator {
         let height = labelSize.height +
             self.cellMessageContentVerticalPadding +
             self.cellDateLabelBottomPadding
-
+        
         return CGSize(width: width,
                       height: height)
     }
-
+    
     func messageContainerFrame(for message: MessageType,
                                at indexPath: IndexPath,
                                fromCurrentSender: Bool) -> CGRect {
@@ -152,7 +153,7 @@ class CustomLayoutSizeCalculator: CellSizeCalculator {
             origin = CGPoint(x: self.cellMessageContainerHorizontalPadding / 2,
                              y: y)
         }
-
+        
         return CGRect(origin: origin,
                       size: size)
     }

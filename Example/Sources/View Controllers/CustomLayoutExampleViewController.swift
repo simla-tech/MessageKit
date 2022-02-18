@@ -12,9 +12,9 @@ import MessageKit
 import Kingfisher
 
 class CustomLayoutExampleViewController: BasicExampleViewController {
-
+    
     private lazy var textMessageSizeCalculator: CustomTextLayoutSizeCalculator = CustomTextLayoutSizeCalculator(layout: self.messagesCollectionView.messagesCollectionViewFlowLayout)
-
+    
     override func configureMessageCollectionView() {
         super.configureMessageCollectionView()
         self.messagesCollectionView.register(CustomTextMessageContentCell.self)
@@ -22,15 +22,15 @@ class CustomLayoutExampleViewController: BasicExampleViewController {
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
     }
-
+    
     // MARK: - MessagesLayoutDelegate
-
+    
     override func textCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
         return self.textMessageSizeCalculator
     }
-
+    
     // MARK: - MessagesDataSource
-
+    
     override func textCell(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UICollectionViewCell? {
         let cell = messagesCollectionView.dequeueReusableCell(CustomTextMessageContentCell.self,
                                                               for: indexPath)
@@ -39,7 +39,7 @@ class CustomLayoutExampleViewController: BasicExampleViewController {
                        in: messagesCollectionView,
                        dataSource: self,
                        and: self.textMessageSizeCalculator)
-
+        
         return cell
     }
 }

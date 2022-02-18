@@ -353,7 +353,7 @@ extension AutocompleteExampleViewController: MessagesDisplayDelegate {
         accessoryView.layer.cornerRadius = accessoryView.frame.height / 2
         accessoryView.backgroundColor = UIColor.primaryColor.withAlphaComponent(0.3)
     }
-
+    
     func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         if case MessageKind.photo(let media) = message.kind, let imageURL = media.url {
             imageView.kf.setImage(with: imageURL)

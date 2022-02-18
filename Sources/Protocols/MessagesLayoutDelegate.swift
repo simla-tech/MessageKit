@@ -77,7 +77,7 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default value returned by this method is zero.
     func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat
-
+    
     /// Specifies the height for the `MessageContentCell`'s bottom label.
     ///
     /// - Parameters:
@@ -88,7 +88,7 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default value returned by this method is zero.
     func cellBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat
-
+    
     /// Specifies the height for the message bubble's top label.
     ///
     /// - Parameters:
@@ -110,7 +110,7 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default value returned by this method is zero.
     func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat
-
+    
     /// Text cell size calculator for messages with MessageType.text.
     ///
     /// - Parameters:
@@ -121,7 +121,7 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default implementation will return nil. You must override this method if you are using your own cell for messages with MessageType.text.
     func textCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator?
-
+    
     /// Attributed text cell size calculator for messages with MessageType.attributedText.
     ///
     /// - Parameters:
@@ -132,7 +132,7 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default implementation will return nil. You must override this method if you are using your own cell for messages with MessageType.attributedText.
     func attributedTextCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator?
-
+    
     /// Emoji cell size calculator for messages with MessageType.emoji.
     ///
     /// - Parameters:
@@ -143,7 +143,7 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default implementation will return nil. You must override this method if you are using your own cell for messages with MessageType.emoji.
     func emojiCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator?
-
+    
     /// Photo cell size calculator for messages with MessageType.photo.
     ///
     /// - Parameters:
@@ -154,7 +154,7 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default implementation will return nil. You must override this method if you are using your own cell for messages with MessageType.text.
     func photoCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator?
-
+    
     /// Video cell size calculator for messages with MessageType.video.
     ///
     /// - Parameters:
@@ -165,7 +165,7 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default implementation will return nil. You must override this method if you are using your own cell for messages with MessageType.video.
     func videoCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator?
-
+    
     /// Location cell size calculator for messages with MessageType.location.
     ///
     /// - Parameters:
@@ -176,7 +176,7 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default implementation will return nil. You must override this method if you are using your own cell for messages with MessageType.location.
     func locationCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator?
-
+    
     /// Audio cell size calculator for messages with MessageType.audio.
     ///
     /// - Parameters:
@@ -187,7 +187,7 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default implementation will return nil. You must override this method if you are using your own cell for messages with MessageType.audio.
     func audioCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator?
-
+    
     /// Contact cell size calculator for messages with MessageType.contact.
     ///
     /// - Parameters:
@@ -198,7 +198,7 @@ public protocol MessagesLayoutDelegate: AnyObject {
     /// - Note:
     ///   The default implementation will return nil. You must override this method if you are using your own cell for messages with MessageType.contact.
     func contactCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator?
-
+    
     /// Custom cell size calculator for messages with MessageType.custom.
     ///
     /// - Parameters:
@@ -235,11 +235,11 @@ public extension MessagesLayoutDelegate {
     func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 0
     }
-
+    
     func cellBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 0
     }
-
+    
     func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 0
     }
@@ -247,39 +247,39 @@ public extension MessagesLayoutDelegate {
     func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 0
     }
-
+    
     func textCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
         return nil
     }
-
+    
     func attributedTextCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
         return nil
     }
-
+    
     func emojiCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
         return nil
     }
-
+    
     func photoCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
         return nil
     }
-
+    
     func videoCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
         return nil
     }
-
+    
     func locationCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
         return nil
     }
-
+    
     func audioCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
         return nil
     }
-
+    
     func contactCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator? {
         return nil
     }
-
+    
     func customCellSizeCalculator(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CellSizeCalculator {
         fatalError("Must return a CellSizeCalculator for MessageKind.custom(Any?)")
     }

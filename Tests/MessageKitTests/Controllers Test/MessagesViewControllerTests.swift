@@ -217,7 +217,7 @@ final class MessagesViewControllerTests: XCTestCase {
     }
 
     // MARK: - Setups
-
+    
     func testSubviewsSetup() {
         let controller = MessagesViewController()
         XCTAssertTrue(controller.view.subviews.contains(controller.messagesCollectionView))
@@ -229,7 +229,7 @@ final class MessagesViewControllerTests: XCTestCase {
         XCTAssertTrue(controller.messagesCollectionView.delegate is MessagesViewController)
         XCTAssertTrue(controller.messagesCollectionView.dataSource is MessagesViewController)
     }
-
+    
     func testDefaultPropertyValues() {
         let controller = MessagesViewController()
         XCTAssertFalse(controller.canBecomeFirstResponder)
@@ -237,7 +237,7 @@ final class MessagesViewControllerTests: XCTestCase {
         XCTAssertNil(controller.inputAccessoryView)
         XCTAssertNotNil(controller.messagesCollectionView)
         XCTAssertTrue(controller.messagesCollectionView.collectionViewLayout is MessagesCollectionViewFlowLayout)
-
+        
         controller.view.layoutIfNeeded()
         XCTAssertTrue(controller.extendedLayoutIncludesOpaqueBars)
         XCTAssertEqual(controller.view.backgroundColor, UIColor.collectionViewBackground)
@@ -257,7 +257,7 @@ private class MockLayoutDelegate: MessagesLayoutDelegate, MessagesDisplayDelegat
     func heightForMedia(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 10.0
     }
-
+    
     func snapshotOptionsForLocation(message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LocationMessageSnapshotOptions {
         return LocationMessageSnapshotOptions()
     }
