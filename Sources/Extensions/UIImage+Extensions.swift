@@ -33,6 +33,6 @@ public enum ImageType: String {
 /// This extension provide a way to access image resources with in framework
 internal extension UIImage {
     static func messageKitImageWith(type: ImageType) -> UIImage? {
-        UIImage(named: type.rawValue, in: Bundle.messageKitAssetBundle, compatibleWith: nil)
+        UIImage(named: type.rawValue, in: Bundle.module, compatibleWith: nil)
     }
 }

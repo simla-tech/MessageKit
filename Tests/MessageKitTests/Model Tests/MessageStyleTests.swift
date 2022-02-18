@@ -27,7 +27,7 @@ import XCTest
 @testable import MessageKit
 
 final class MessageStyleTests: XCTestCase {
-    private let assetBundle = Bundle.messageKitAssetBundle
+    private let assetBundle = Bundle.module
 
     func testTailCornerImageOrientation() {
         XCTAssertEqual(MessageStyle.TailCorner.bottomRight.imageOrientation, UIImage.Orientation.up)

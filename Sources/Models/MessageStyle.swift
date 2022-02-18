@@ -80,7 +80,7 @@ public enum MessageStyle {
 
         guard
             let imageName = imageName,
-            var image = UIImage(named: imageName, in: Bundle.messageKitAssetBundle, compatibleWith: nil)
+            var image = UIImage(named: imageName, in: Bundle.module, compatibleWith: nil)
         else {
             return nil
         }

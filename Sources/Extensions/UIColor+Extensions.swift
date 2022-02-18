@@ -26,32 +26,25 @@ import Foundation
 import UIKit
 
 internal extension UIColor {
+    
+    static var incomingMessageBackground: UIColor { MessageKitAsset.incomingMessageBackground.color }
 
-    private static func colorFromAssetBundle(named: String) -> UIColor {
-        guard let color = UIColor(named: named, in: Bundle.messageKitAssetBundle, compatibleWith: nil) else {
-            fatalError(MessageKitError.couldNotFindColorAsset)
-        }
-        return color
-    }
+    static var outgoingMessageBackground: UIColor { MessageKitAsset.outgoingMessageBackground.color }
     
-    static var incomingMessageBackground: UIColor { colorFromAssetBundle(named: "incomingMessageBackground")  }
+    static var incomingMessageLabel: UIColor { MessageKitAsset.incomingMessageLabel.color }
+    
+    static var outgoingMessageLabel: UIColor { MessageKitAsset.outgoingMessageLabel.color }
+    
+    static var incomingAudioMessageTint: UIColor { MessageKitAsset.incomingAudioMessageTint.color }
+    
+    static var outgoingAudioMessageTint: UIColor { MessageKitAsset.outgoingAudioMessageTint.color }
 
-    static var outgoingMessageBackground: UIColor { colorFromAssetBundle(named: "outgoingMessageBackground") }
-    
-    static var incomingMessageLabel: UIColor { colorFromAssetBundle(named: "incomingMessageLabel") }
-    
-    static var outgoingMessageLabel: UIColor { colorFromAssetBundle(named: "outgoingMessageLabel") }
-    
-    static var incomingAudioMessageTint: UIColor { colorFromAssetBundle(named: "incomingAudioMessageTint") }
-    
-    static var outgoingAudioMessageTint: UIColor { colorFromAssetBundle(named: "outgoingAudioMessageTint") }
+    static var collectionViewBackground: UIColor { MessageKitAsset.collectionViewBackground.color }
 
-    static var collectionViewBackground: UIColor { colorFromAssetBundle(named: "collectionViewBackground") }
-
-    static var typingIndicatorDot: UIColor { colorFromAssetBundle(named: "typingIndicatorDot") }
+    static var typingIndicatorDot: UIColor { MessageKitAsset.typingIndicatorDot.color }
     
-    static var label: UIColor { colorFromAssetBundle(named: "label") }
+    static var label: UIColor { MessageKitAsset.label.color }
     
-    static var avatarViewBackground: UIColor { colorFromAssetBundle(named: "avatarViewBackground") }
+    static var avatarViewBackground: UIColor { MessageKitAsset.avatarViewBackground.color }
 
 }
